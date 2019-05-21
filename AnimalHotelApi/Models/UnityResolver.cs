@@ -18,7 +18,7 @@ public class UnityResolver : IDependencyResolver
         {
             return container.Resolve(serviceType);
         }
-        catch (ResolutionFailedException)
+        catch
         {
             return null;
         }
@@ -30,7 +30,7 @@ public class UnityResolver : IDependencyResolver
         {
             return container.ResolveAll(serviceType);
         }
-        catch (ResolutionFailedException)
+        catch
         {
             return new List<object>();
         }
