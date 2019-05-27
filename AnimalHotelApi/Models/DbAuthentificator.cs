@@ -16,7 +16,7 @@ namespace AnimalHotelApi.Models
         public DbAuthentificator(IMongoClient mongoClient, IUserRepository userRepository)
         {
             var database = mongoClient.GetDatabase("AnimalHotel");
-            sessions = database.GetCollection<SessionState>("Sessions");
+            sessions = database.GetCollection<SessionState>("AuthSessions");
             this.userRepository = userRepository;
         }
 
