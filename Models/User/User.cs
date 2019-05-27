@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Models.User
 {
@@ -10,6 +11,7 @@ namespace Models.User
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
+        [BsonId]
         public Guid Id { get; set; }
 
         /// <summary>
