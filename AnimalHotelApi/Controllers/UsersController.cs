@@ -18,14 +18,14 @@ namespace AnimalHotelApi.Controllers
         private readonly IUserRepository userRepository;
         private readonly IAuthentificator authenticator;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserRepository userRepository, IAuthentificator authenticator)
         {
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-            authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
+            this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
         }
 
         [HttpPatch]
-        [Route("{id}")]
+        [Route("{userId}")]
         public IHttpActionResult Patch(string userId, [FromBody]UserPatchInfo patchInfo)
         {
             if (!ModelState.IsValid)
