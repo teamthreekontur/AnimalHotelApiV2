@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Models.Place
 {
@@ -10,6 +11,7 @@ namespace Models.Place
         /// <summary>
         /// Идентификатор передержки
         /// </summary>
+        [BsonId]
         public Guid Id { get; set; }
 
         /// <summary>

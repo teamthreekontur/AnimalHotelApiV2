@@ -1,5 +1,6 @@
 ﻿namespace AnimalHotelApi.Models
 {
+    using MongoDB.Bson.Serialization.Attributes;
     using System;
 
     public class SessionState
@@ -15,6 +16,7 @@
             this.UserId = userId;
         }
 
+        [BsonId]
         public Guid SessionId { get; }
 
         public Guid UserId { get; }

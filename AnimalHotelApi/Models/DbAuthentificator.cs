@@ -16,7 +16,7 @@ namespace AnimalHotelApi.Models
         public DbAuthentificator(IMongoClient mongoClient, IUserRepository userRepository)
         {
             var database = mongoClient.GetDatabase("AnimalHotel");
-            sessions = database.GetCollection<SessionState>("AuthSessions");
+            sessions = database.GetCollection<SessionState>("Sessions");
             this.userRepository = userRepository;
         }
 
@@ -39,8 +39,7 @@ namespace AnimalHotelApi.Models
             {
                 throw new ArgumentException("Session not found", nameof(sessionId));
             }
-            searchResult.First();
-            throw new NotImplementedException();
+            return searchResult.First();
         }
 
         public bool TryGetSession(Guid sessionId, out SessionState sessionState)
