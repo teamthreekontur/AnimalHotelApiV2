@@ -19,7 +19,7 @@ namespace AnimalHotelApi
         public static void Register(HttpConfiguration config)
         {
             var container = new UnityContainer();
-#if DEBUG
+#if LOCAL
             container.RegisterSingleton<IUserRepository, MemoryUserRepository>();
             container.RegisterSingleton<IPlaceRepository, MemoryPlaceRepository>();
             container.RegisterSingleton<IAuthentificator, MemoryAuthentificator>();
