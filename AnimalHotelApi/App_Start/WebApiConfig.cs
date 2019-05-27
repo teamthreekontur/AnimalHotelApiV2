@@ -26,7 +26,7 @@ namespace AnimalHotelApi
             container.RegisterSingleton<IAuthentificator, MemoryAuthentificator>();
             config.Routes.MapHttpRoute(
                 name: "check",
-                routeTemplate: "/check",
+                routeTemplate: "check",
                 defaults: null,
                 constraints: null,
                 handler: new RedirectHandler(SwaggerDocsConfig.DefaultRootUrlResolver, "memory"));
@@ -39,11 +39,9 @@ namespace AnimalHotelApi
             container.RegisterSingleton<IPlaceRepository, DbPlaceRepository>();
             container.RegisterSingleton<IAuthentificator, DbAuthentificator>();
             container.RegisterInstance<IMongoClient>(mongoClient);
-
-            
             config.Routes.MapHttpRoute(
                 name: "check",
-                routeTemplate: "/check",
+                routeTemplate: "check",
                 defaults: null,
                 constraints: null,
                 handler: new RedirectHandler(SwaggerDocsConfig.DefaultRootUrlResolver, "db"));
