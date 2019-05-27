@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Security.Authentication;
 using System.Web.Http;
 using System.Xml.XPath;
 using Unity;
@@ -24,7 +25,10 @@ namespace AnimalHotelApi
             container.RegisterSingleton<IPlaceRepository, MemoryPlaceRepository>();
             container.RegisterSingleton<IAuthentificator, MemoryAuthentificator>();
 #else
-            var mongoClient = new MongoClient(ConfigurationManager.ConnectionStrings["AniHoDb"].ConnectionString);
+            MongoClientSettings settings = MongoClientSettings
+                .FromUrl(new MongoUrl(ConfigurationManager.ConnectionStrings["AniHoDb"].ConnectionString));
+            settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+            var mongoClient = new MongoClient(settings);
             container.RegisterSingleton<IUserRepository, DbUserRepository>();
             container.RegisterSingleton<IPlaceRepository, DbPlaceRepository>();
             container.RegisterSingleton<IAuthentificator, DbAuthentificator>();
