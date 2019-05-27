@@ -13,7 +13,7 @@ namespace Models.Place.Repository
         public DbPlaceRepository(IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase("AnimalHotel");
-            places = database.GetCollection<Place>("Users");
+            places = database.GetCollection<Place>("Places");
         }
 
         public Place Create(PlaceCreateInfo createInfo)
