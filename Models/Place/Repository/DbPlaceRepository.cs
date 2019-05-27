@@ -69,6 +69,16 @@ namespace Models.Place.Repository
                 place.Address = patchInfo.Address;
             }
 
+            if (patchInfo.Description != null)
+            {
+                place.Description = patchInfo.Description;
+            }
+
+            if (patchInfo.Price != null)
+            {
+                place.Price = patchInfo.Price ?? 0;
+            }
+
             places.ReplaceOne(x => x.Id == place.Id, place);
             return place;
         }

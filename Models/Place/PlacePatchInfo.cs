@@ -47,6 +47,6 @@ namespace Models.Place
         /// <summary>
         /// Цена передержки
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
     }
 }
