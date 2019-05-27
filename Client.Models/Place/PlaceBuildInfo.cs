@@ -1,4 +1,4 @@
-﻿//using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Client.Models.Place
@@ -13,28 +13,28 @@ namespace Client.Models.Place
         /// Название передержки
         /// </summary>
         [DataMember(IsRequired = true)]
-        //[Required]
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
         /// Адрес передержки
         /// </summary>
         [DataMember(IsRequired = true)]
-        //[Required]
+        [Required]
         public string Address { get; set; }
 
         /// <summary>
         /// Описание передержки
         /// </summary>
         [DataMember(IsRequired = true)]
-        //[Required]
+        [Required]
         public string Description { get; set; }
 
         /// <summary>
         /// Цена передержки
         /// </summary>
         [DataMember(IsRequired = true)]
-        //[Required]
+        [Required]
         public decimal Price { get; set; }
     }
 }

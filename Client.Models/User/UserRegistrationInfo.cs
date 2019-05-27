@@ -1,4 +1,4 @@
-﻿//using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Client.Models.User
@@ -13,14 +13,14 @@ namespace Client.Models.User
         /// Логин пользователя
         /// </summary>
         [DataMember(IsRequired = true)]
-        //[Required]
+        [Required]
         public string Login { get; set; }
 
         /// <summary>
         /// Пароль пользователя
         /// </summary>
         [DataMember(IsRequired = true)]
-        //[Required]
+        [Required]
         public string Password { get; set; }
     }
 }

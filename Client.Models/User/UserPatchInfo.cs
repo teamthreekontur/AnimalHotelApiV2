@@ -17,12 +17,5 @@ namespace Client.Models.User
         /// </summary>
         [DataMember(IsRequired = false)]
         public string Password;
-
-        /// <summary>
-        /// Идентификатор сессии
-        /// </summary>
-        [DataMember(IsRequired = true)]
-        //[Required]
-        public string SessionId { get; set; }
     }
 }
