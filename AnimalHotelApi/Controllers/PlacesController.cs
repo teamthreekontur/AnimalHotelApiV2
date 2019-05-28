@@ -27,7 +27,7 @@ namespace Place.API.Controllers
         [HttpPost]
         public IHttpActionResult CreatePlace([FromBody]PlaceBuildInfo buildInfo)
         {
-            if (buildInfo == null)
+            if (!ModelState.IsValid)
             {
                 return this.BadRequest();
             }
@@ -69,7 +69,6 @@ namespace Place.API.Controllers
         [Route("{placeId}", Name = "GetPlaceRoute")]
         public IHttpActionResult GetPlace([FromUri]string placeId)
         {
-
             if (!ModelState.IsValid)
             {
                 return this.BadRequest();
