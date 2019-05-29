@@ -10,7 +10,7 @@ namespace Client.Models.Validation
 {
     public class PlacePatchInfoValidator : AbstractValidator<PlacePatchInfo>
     {
-        private const string plainTextSpecChars = @"|\'""~№_<>(){}[]!?.,;:@#$%^&+-*/=";
+        private const string plainTextSpecChars = @"|\'""~№_<>(){}[]!?.,;:@#$%^&+-*/= ";
         public PlacePatchInfoValidator()
         {
             RuleFor(x => x.Name)

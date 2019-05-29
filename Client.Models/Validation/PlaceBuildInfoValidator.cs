@@ -10,7 +10,7 @@ namespace Client.Models.Validation
 {
     public class PlaceBuildInfoValidator : AbstractValidator<PlaceBuildInfo>
     {
-        private const string  plainTextSpecChars = @"|\'""~№_<>(){}[]!?.,;:@#$%^&+-*/=";
+        private const string  plainTextSpecChars = @"|\'""~№_<>(){}[]!?.,;:@#$%^&+-*/= ";
         public PlaceBuildInfoValidator()
         {
             RuleFor(x => x.Name)
