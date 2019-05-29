@@ -1,8 +1,10 @@
 ﻿using AnimalHotelApi.Models;
 using Client.Models.User;
+using FluentValidation;
 using Models.User;
 using Models.User.Repository;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 
@@ -13,19 +15,26 @@ namespace AnimalHotelApi.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly IAuthentificator authenticator;
+        private readonly AbstractValidator<UserRegistrationInfo> validationRules;
 
-        public AuthController(IUserRepository repository, IAuthentificator authenticator)
+        public AuthController(IUserRepository repository, IAuthentificator authenticator,
+            AbstractValidator<UserRegistrationInfo> validationRules)
         {
             this.userRepository = repository ?? throw new ArgumentNullException(nameof(repository));
-            this.authenticator = authenticator;
+            this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
+            this.validationRules = validationRules ?? throw new ArgumentNullException(nameof(validationRules));
         }
 
         [HttpPost]
         public IHttpActionResult Auth([FromBody] UserRegistrationInfo userRegisterInfo)
         {
-            if (!ModelState.IsValid)
+            var validationResult = validationRules.Validate(userRegisterInfo);
+            if (!validationResult.IsValid)
             {
-                return this.BadRequest();
+                var errorMessages = validationResult
+                    .Errors
+                    .Select(x => x.ErrorMessage);
+                return this.BadRequest(string.Join(". ", errorMessages));
             }
             try
             {

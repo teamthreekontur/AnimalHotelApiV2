@@ -1,4 +1,6 @@
 ﻿using AnimalHotelApi.Models;
+using Client.Models.User;
+using FluentValidation;
 using Models.Place.Repository;
 using Models.User.Repository;
 using MongoDB.Driver;
@@ -11,7 +13,9 @@ using System.Security.Authentication;
 using System.Web.Http;
 using System.Xml.XPath;
 using Unity;
+using Client.Models.Validation;
 using Unity.Lifetime;
+using Client.Models.Place;
 
 namespace AnimalHotelApi
 {
@@ -31,8 +35,12 @@ namespace AnimalHotelApi
             container.RegisterSingleton<IAuthentificator, DbAuthentificator>();
             container.RegisterInstance<IMongoClient>(mongoClient);
 
-            config.DependencyResolver = new UnityResolver(container);
+            container.RegisterSingleton<AbstractValidator<UserRegistrationInfo>, UserRegistrationInfoValidator>();
+            container.RegisterSingleton<AbstractValidator<UserPatchInfo>, UserPatchInfoValidator>();
+            container.RegisterSingleton<AbstractValidator<PlacePatchInfo>, PlacePatchInfoValidator>();
+            container.RegisterSingleton<AbstractValidator<PlaceBuildInfo>, PlaceBuildInfoValidator>();
 
+            config.DependencyResolver = new UnityResolver(container);
             // Attribute routing
             config.MapHttpAttributeRoutes();
 

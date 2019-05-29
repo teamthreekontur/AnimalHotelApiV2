@@ -9,6 +9,7 @@ using Models.Converters.Places;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Linq;
+using FluentValidation;
 
 namespace Place.API.Controllers
 {
@@ -17,21 +18,31 @@ namespace Place.API.Controllers
     {
         private readonly IPlaceRepository repository;
         private readonly IAuthentificator authenticator;
-
-        public PlacesController(IPlaceRepository repository, IAuthentificator authenticator)
+        private readonly AbstractValidator<PlacePatchInfo> patchValidationRules;
+        private readonly AbstractValidator<PlaceBuildInfo> buildValidationRules;
+        public PlacesController(IPlaceRepository repository, IAuthentificator authenticator,
+            AbstractValidator<PlacePatchInfo> patchValidationRules,
+            AbstractValidator<PlaceBuildInfo> buildValidationRules)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            this.authenticator = authenticator;
+            this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
+            this.patchValidationRules = patchValidationRules
+                ?? throw new ArgumentNullException(nameof(patchValidationRules));
+            this.buildValidationRules = buildValidationRules
+                ?? throw new ArgumentNullException(nameof(buildValidationRules));
         }
 
         [HttpPost]
         public IHttpActionResult CreatePlace([FromBody]PlaceBuildInfo buildInfo)
         {
-            if (!ModelState.IsValid)
+            var validationResult = buildValidationRules.Validate(buildInfo);
+            if (!validationResult.IsValid)
             {
-                return this.BadRequest();
+                var errorMessages = validationResult
+                    .Errors
+                    .Select(x => x.ErrorMessage);
+                return this.BadRequest(string.Join(". ", errorMessages));
             }
-
             string sessionId = "";
             CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
             if (cookie != null)
@@ -97,26 +108,28 @@ namespace Place.API.Controllers
         [Route("{placeId}")]
         public IHttpActionResult PatchPlace([FromUri]string placeId, [FromBody]PlacePatchInfo patchInfo)
         {
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
-            if (!Guid.TryParse(placeId, out var placeIdGuid))
-            {
-                return this.BadRequest();
-            }
-
             string sessionId = "";
             CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
             if (cookie != null)
             {
                 sessionId = cookie["SessionId"].Value;
             }
-
             if (!authenticator.TryGetSession(sessionId, out var sessionState))
             {
                 return this.Unauthorized();
+            }
+
+            if (!Guid.TryParse(placeId, out var placeIdGuid))
+            {
+                return this.BadRequest();
+            }
+            var validationResult = patchValidationRules.Validate(patchInfo);
+            if (!validationResult.IsValid)
+            {
+                var errorMessages = validationResult
+                    .Errors
+                    .Select(x => x.ErrorMessage);
+                return this.BadRequest(string.Join(". ", errorMessages));
             }
 
             try
@@ -151,6 +164,17 @@ namespace Place.API.Controllers
         [Route("{placeId}")]
         public IHttpActionResult DeletePlace([FromUri]string placeId)
         {
+            string sessionId = "";
+            CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
+            if (cookie != null)
+            {
+                sessionId = cookie["SessionId"].Value;
+            }
+            if (!authenticator.TryGetSession(sessionId, out var sessionState))
+            {
+                return this.Unauthorized();
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.BadRequest();

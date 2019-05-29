@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Client.Models.Place
+﻿namespace Client.Models.Place
 {
     /// <summary>
     /// Информация о передержке

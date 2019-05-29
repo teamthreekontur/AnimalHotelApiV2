@@ -1,4 +1,5 @@
 ﻿using Client.Models.User;
+using FluentValidation;
 using Models.Converters.Users;
 using Models.User;
 using Models.User.Repository;
@@ -16,19 +17,25 @@ namespace AnimalHotelApi.Controllers
     public class RegisterController : ApiController
     {
         private readonly IUserRepository userRepository;
-        public RegisterController(IUserRepository userRepository)
+        private readonly AbstractValidator<UserRegistrationInfo> validationRules;
+        public RegisterController(IUserRepository userRepository, 
+            AbstractValidator<UserRegistrationInfo> validationRules)
         {
-            this.userRepository = userRepository;
+            this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            this.validationRules = validationRules ?? throw new ArgumentNullException(nameof(validationRules));
         }
 
         [HttpPost]
         public IHttpActionResult Post([FromBody] UserRegistrationInfo userRegisterInfo)
         {
-            if (!ModelState.IsValid)
+            var validationResult = validationRules.Validate(userRegisterInfo);
+            if (!validationResult.IsValid)
             {
-                return this.BadRequest();
+                var errorMessages = validationResult
+                    .Errors
+                    .Select(x => x.ErrorMessage);
+                return this.BadRequest(string.Join(". ", errorMessages));
             }
-
             try
             {
                 var user = userRepository.Create(UserConverter.Convert(userRegisterInfo));

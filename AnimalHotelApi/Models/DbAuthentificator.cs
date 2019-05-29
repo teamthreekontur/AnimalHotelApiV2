@@ -27,7 +27,7 @@ namespace AnimalHotelApi.Models
             {
                 throw new ArgumentException("Wrong password", nameof(password));
             }
-            var sessionState = new SessionState(Guid.NewGuid(), user.Id);
+            var sessionState = new SessionState(Guid.NewGuid(), user.Id, DateTime.Now.AddMonths(1));
             sessions.InsertOne(sessionState);
             return sessionState;
         }
@@ -39,7 +39,13 @@ namespace AnimalHotelApi.Models
             {
                 throw new ArgumentException("Session not found", nameof(sessionId));
             }
-            return searchResult.First();
+            var session = searchResult.First();
+            if (session.Expired < DateTime.Now)
+            {
+                sessions.DeleteOne(x => x.SessionId == sessionId);
+                throw new ArgumentException("Session not found", nameof(sessionId));
+            }
+            return session;
         }
 
         public bool TryGetSession(Guid sessionId, out SessionState sessionState)
