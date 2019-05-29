@@ -18,27 +18,20 @@ namespace AnimalHotelApi.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly IAuthentificator authenticator;
-        private readonly AbstractValidator<UserPatchInfo> validationRules;
 
-        public UsersController(IUserRepository userRepository, IAuthentificator authenticator,
-            AbstractValidator<UserPatchInfo> validationRules)
+        public UsersController(IUserRepository userRepository, IAuthentificator authenticator)
         {
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
-            this.validationRules = validationRules ?? throw new ArgumentNullException(nameof(validationRules));
         }
 
         [HttpPatch]
         [Route("{userId}")]
         public IHttpActionResult Patch(string userId, [FromBody]UserPatchInfo patchInfo)
         {
-            var validationResult = validationRules.Validate(patchInfo);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                var errorMessages = validationResult
-                    .Errors
-                    .Select(x => x.ErrorMessage);
-                return this.BadRequest(string.Join(". ", errorMessages));
+                return this.BadRequest(ModelState);
             }
 
             if (!Guid.TryParse(userId, out var userIdGuid))

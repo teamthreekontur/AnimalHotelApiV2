@@ -18,30 +18,18 @@ namespace Place.API.Controllers
     {
         private readonly IPlaceRepository repository;
         private readonly IAuthentificator authenticator;
-        private readonly AbstractValidator<PlacePatchInfo> patchValidationRules;
-        private readonly AbstractValidator<PlaceBuildInfo> buildValidationRules;
-        public PlacesController(IPlaceRepository repository, IAuthentificator authenticator,
-            AbstractValidator<PlacePatchInfo> patchValidationRules,
-            AbstractValidator<PlaceBuildInfo> buildValidationRules)
+        public PlacesController(IPlaceRepository repository, IAuthentificator authenticator)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
-            this.patchValidationRules = patchValidationRules
-                ?? throw new ArgumentNullException(nameof(patchValidationRules));
-            this.buildValidationRules = buildValidationRules
-                ?? throw new ArgumentNullException(nameof(buildValidationRules));
         }
 
         [HttpPost]
         public IHttpActionResult CreatePlace([FromBody]PlaceBuildInfo buildInfo)
         {
-            var validationResult = buildValidationRules.Validate(buildInfo);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                var errorMessages = validationResult
-                    .Errors
-                    .Select(x => x.ErrorMessage);
-                return this.BadRequest(string.Join(". ", errorMessages));
+                return this.BadRequest(ModelState);
             }
             string sessionId = "";
             CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
@@ -123,13 +111,9 @@ namespace Place.API.Controllers
             {
                 return this.BadRequest();
             }
-            var validationResult = patchValidationRules.Validate(patchInfo);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                var errorMessages = validationResult
-                    .Errors
-                    .Select(x => x.ErrorMessage);
-                return this.BadRequest(string.Join(". ", errorMessages));
+                return this.BadRequest(ModelState);
             }
 
             try

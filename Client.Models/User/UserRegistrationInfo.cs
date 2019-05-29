@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Client.Models.Validation;
+using FluentValidation.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Client.Models.User
 {
     /// <summary>
     /// Информация для регистрации пользователя
     /// </summary>
+    [Validator(typeof(UserRegistrationInfoValidator))]
     public class UserRegistrationInfo
     {
         /// <summary>

@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Client.Models.Validation;
+using FluentValidation.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Client.Models.Place
 {
     /// <summary>
     /// Информация для создания передержки
     /// </summary>
+    [Validator(typeof(PlaceBuildInfoValidator))]
     public class PlaceBuildInfo
     {
         /// <summary>

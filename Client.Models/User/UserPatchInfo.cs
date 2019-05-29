@@ -1,5 +1,9 @@
-﻿namespace Client.Models.User
+﻿using Client.Models.Validation;
+using FluentValidation.Attributes;
+
+namespace Client.Models.User
 {
+    [Validator(typeof(UserPatchInfoValidator))]
     public class UserPatchInfo
     {
         /// <summary>

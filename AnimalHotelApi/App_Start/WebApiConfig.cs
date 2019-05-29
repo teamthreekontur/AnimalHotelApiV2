@@ -16,6 +16,7 @@ using Unity;
 using Client.Models.Validation;
 using Unity.Lifetime;
 using Client.Models.Place;
+using FluentValidation.WebApi;
 
 namespace AnimalHotelApi
 {
@@ -35,10 +36,10 @@ namespace AnimalHotelApi
             container.RegisterSingleton<IAuthentificator, DbAuthentificator>();
             container.RegisterInstance<IMongoClient>(mongoClient);
 
-            container.RegisterSingleton<AbstractValidator<UserRegistrationInfo>, UserRegistrationInfoValidator>();
-            container.RegisterSingleton<AbstractValidator<UserPatchInfo>, UserPatchInfoValidator>();
-            container.RegisterSingleton<AbstractValidator<PlacePatchInfo>, PlacePatchInfoValidator>();
-            container.RegisterSingleton<AbstractValidator<PlaceBuildInfo>, PlaceBuildInfoValidator>();
+            //container.RegisterSingleton<AbstractValidator<UserRegistrationInfo>, UserRegistrationInfoValidator>();
+            //container.RegisterSingleton<AbstractValidator<UserPatchInfo>, UserPatchInfoValidator>();
+            //container.RegisterSingleton<AbstractValidator<PlacePatchInfo>, PlacePatchInfoValidator>();
+            //container.RegisterSingleton<AbstractValidator<PlaceBuildInfo>, PlaceBuildInfoValidator>();
 
             config.DependencyResolver = new UnityResolver(container);
             // Attribute routing
@@ -57,7 +58,7 @@ namespace AnimalHotelApi
               routeTemplate: "api/{controller}/{id}",
               defaults: new { id = RouteParameter.Optional }
             );
-
+            FluentValidationModelValidatorProvider.Configure(config);
         }
     }
 }

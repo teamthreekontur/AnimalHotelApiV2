@@ -17,24 +17,17 @@ namespace AnimalHotelApi.Controllers
     public class RegisterController : ApiController
     {
         private readonly IUserRepository userRepository;
-        private readonly AbstractValidator<UserRegistrationInfo> validationRules;
-        public RegisterController(IUserRepository userRepository, 
-            AbstractValidator<UserRegistrationInfo> validationRules)
+        public RegisterController(IUserRepository userRepository)
         {
             this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-            this.validationRules = validationRules ?? throw new ArgumentNullException(nameof(validationRules));
         }
 
         [HttpPost]
         public IHttpActionResult Post([FromBody] UserRegistrationInfo userRegisterInfo)
         {
-            var validationResult = validationRules.Validate(userRegisterInfo);
-            if (!validationResult.IsValid)
+            if (!ModelState.IsValid)
             {
-                var errorMessages = validationResult
-                    .Errors
-                    .Select(x => x.ErrorMessage);
-                return this.BadRequest(string.Join(". ", errorMessages));
+                return this.BadRequest(ModelState);
             }
             try
             {

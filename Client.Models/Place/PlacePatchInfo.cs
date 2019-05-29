@@ -1,8 +1,12 @@
-﻿namespace Client.Models.Place
+﻿using Client.Models.Validation;
+using FluentValidation.Attributes;
+
+namespace Client.Models.Place
 {
     /// <summary>
     /// Информация для изменения передержки
     /// </summary>
+    [Validator(typeof(PlacePatchInfoValidator))]
     public class PlacePatchInfo
     {
         /// <summary>

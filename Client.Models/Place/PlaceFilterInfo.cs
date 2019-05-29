@@ -11,7 +11,7 @@
         public string UserId { get; set; }
 
         /// <summary>
-        /// Фильтр по пользователю
+        /// Фильтр по названию
         /// </summary>
         public string Name { get; set; }
     }

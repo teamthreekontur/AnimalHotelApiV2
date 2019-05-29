@@ -15,8 +15,7 @@ namespace Client.Models.Validation
         public UserRegistrationInfoValidator()
         {
             RuleFor(x => x.Login)
-                .NotNull()
-                .WithMessage(@"Login must be not null");
+                .NotNull();
             RuleFor(x => x.Login)
                 .Length(3, 255)
                 .When(x => x.Login != null)
@@ -26,8 +25,7 @@ namespace Client.Models.Validation
                 .When(x => x.Login != null)
                 .WithMessage(@"Login must include only letters\digits\spec symbols: " + validSpecCharsForLogin);
             RuleFor(x => x.Password)
-                .NotNull()
-                .WithMessage(@"Password must be");
+                .NotNull();
             RuleFor(x => x.Password)
                 .Length(12, 255)
                 .When(x => x.Password != null)

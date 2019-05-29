@@ -14,8 +14,7 @@ namespace Client.Models.Validation
         public PlaceBuildInfoValidator()
         {
             RuleFor(x => x.Name)
-                .NotNull()
-                .WithMessage(@"Name must be");
+                .NotNull();
             RuleFor(x => x.Name)
                 .Length(3, 50)
                 .When(x => x.Name != null)
@@ -25,8 +24,7 @@ namespace Client.Models.Validation
                 .When(x => x.Name != null)
                 .WithMessage(@"Name must contain only letters\digits\space\spec symbols: "+ plainTextSpecChars);
             RuleFor(x => x.Address)
-                .NotNull()
-                .WithMessage(@"Address must be");
+                .NotNull();
             RuleFor(x => x.Address)
                 .Length(5, 150)
                 .When(x => x.Address != null)
@@ -36,8 +34,7 @@ namespace Client.Models.Validation
                 .When(x => x.Address != null)
                 .WithMessage(@"Address must contain only letters\digits\space\spec symbols: " + plainTextSpecChars);
             RuleFor(x => x.Description)
-                .NotNull()
-                .WithMessage(@"Description must be");
+                .NotNull();
             RuleFor(x => x.Description)
                 .Length(10, 500)
                 .When(x => x.Description != null)
