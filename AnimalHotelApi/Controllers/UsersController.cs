@@ -1,5 +1,6 @@
 ﻿using AnimalHotelApi.Models;
 using Client.Models.User;
+using FluentValidation;
 using Models.Converters.Users;
 using Models.User.Repository;
 using System;
@@ -30,7 +31,7 @@ namespace AnimalHotelApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return this.BadRequest(ModelState);
             }
 
             if (!Guid.TryParse(userId, out var userIdGuid))

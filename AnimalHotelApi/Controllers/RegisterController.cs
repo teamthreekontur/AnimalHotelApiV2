@@ -1,4 +1,5 @@
 ﻿using Client.Models.User;
+using FluentValidation;
 using Models.Converters.Users;
 using Models.User;
 using Models.User.Repository;
@@ -18,7 +19,7 @@ namespace AnimalHotelApi.Controllers
         private readonly IUserRepository userRepository;
         public RegisterController(IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         [HttpPost]
@@ -26,9 +27,8 @@ namespace AnimalHotelApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.BadRequest(ModelState);
             }
-
             try
             {
                 var user = userRepository.Create(UserConverter.Convert(userRegisterInfo));

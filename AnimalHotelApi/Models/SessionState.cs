@@ -5,7 +5,7 @@
 
     public class SessionState
     {
-        public SessionState(Guid sessionId, Guid userId)
+        public SessionState(Guid sessionId, Guid userId, DateTime expired)
         {
             if (sessionId == null)
             {
@@ -14,11 +14,14 @@
 
             this.SessionId = sessionId;
             this.UserId = userId;
+            this.Expired = expired;
         }
 
         [BsonId]
         public Guid SessionId { get; }
 
         public Guid UserId { get; }
+
+        public DateTime Expired { get; }
     }
 }

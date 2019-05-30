@@ -9,6 +9,7 @@ using Models.Converters.Places;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Linq;
+using FluentValidation;
 
 namespace Place.API.Controllers
 {
@@ -17,11 +18,10 @@ namespace Place.API.Controllers
     {
         private readonly IPlaceRepository repository;
         private readonly IAuthentificator authenticator;
-
         public PlacesController(IPlaceRepository repository, IAuthentificator authenticator)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            this.authenticator = authenticator;
+            this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
         }
 
         [HttpPost]
@@ -29,9 +29,8 @@ namespace Place.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.BadRequest(ModelState);
             }
-
             string sessionId = "";
             CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
             if (cookie != null)
@@ -102,26 +101,24 @@ namespace Place.API.Controllers
         [Route("{placeId}")]
         public IHttpActionResult PatchPlace([FromUri]string placeId, [FromBody]PlacePatchInfo patchInfo)
         {
-            if (!ModelState.IsValid)
-            {
-                return this.BadRequest();
-            }
-
-            if (!Guid.TryParse(placeId, out var placeIdGuid))
-            {
-                return this.BadRequest();
-            }
-
             string sessionId = "";
             CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
             if (cookie != null)
             {
                 sessionId = cookie["SessionId"].Value;
             }
-
             if (!authenticator.TryGetSession(sessionId, out var sessionState))
             {
                 return this.Unauthorized();
+            }
+
+            if (!Guid.TryParse(placeId, out var placeIdGuid))
+            {
+                return this.BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
             }
 
             try
@@ -156,6 +153,17 @@ namespace Place.API.Controllers
         [Route("{placeId}")]
         public IHttpActionResult DeletePlace([FromUri]string placeId)
         {
+            string sessionId = "";
+            CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
+            if (cookie != null)
+            {
+                sessionId = cookie["SessionId"].Value;
+            }
+            if (!authenticator.TryGetSession(sessionId, out var sessionState))
+            {
+                return this.Unauthorized();
+            }
+
             if (!ModelState.IsValid)
             {
                 return this.BadRequest();

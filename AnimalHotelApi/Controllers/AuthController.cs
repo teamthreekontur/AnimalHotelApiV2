@@ -1,8 +1,10 @@
 ﻿using AnimalHotelApi.Models;
 using Client.Models.User;
+using FluentValidation;
 using Models.User;
 using Models.User.Repository;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 
@@ -17,7 +19,7 @@ namespace AnimalHotelApi.Controllers
         public AuthController(IUserRepository repository, IAuthentificator authenticator)
         {
             this.userRepository = repository ?? throw new ArgumentNullException(nameof(repository));
-            this.authenticator = authenticator;
+            this.authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
         }
 
         [HttpPost]
@@ -25,7 +27,7 @@ namespace AnimalHotelApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.BadRequest(ModelState);
             }
             try
             {

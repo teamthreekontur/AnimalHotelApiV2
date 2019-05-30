@@ -1,21 +1,19 @@
-﻿//using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+﻿using Client.Models.Validation;
+using FluentValidation.Attributes;
 
 namespace Client.Models.User
 {
-    [DataContract]
+    [Validator(typeof(UserPatchInfoValidator))]
     public class UserPatchInfo
     {
         /// <summary>
         /// Логин пользователя
         /// </summary>
-        [DataMember(IsRequired = false)]
         public string Login;
 
         /// <summary>
         /// Пароль пользователя
         /// </summary>
-        [DataMember(IsRequired = false)]
         public string Password;
     }
 }
