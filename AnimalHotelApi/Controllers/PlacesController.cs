@@ -33,6 +33,10 @@ namespace Place.API.Controllers
             {
                 return this.BadRequest(ModelState);
             }
+            if (buildInfo == null)
+            {
+                return this.BadRequest("Body must be not null");
+            }
             string sessionId = "";
             CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
             if (cookie != null)
@@ -64,7 +68,11 @@ namespace Place.API.Controllers
             {
                 return this.BadRequest();
             }
-            
+            if (placeFilterInfo == null)
+            {
+                return this.BadRequest("Body must be not null");
+            }
+
             return Ok(new
             {
                 Places = repository.Get(PlaceFilterInfoConverter.Convert(placeFilterInfo))
@@ -121,6 +129,10 @@ namespace Place.API.Controllers
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
+            }
+            if (patchInfo == null)
+            {
+                return this.BadRequest("Body must be not null");
             }
 
             try

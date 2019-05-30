@@ -30,6 +30,10 @@ namespace AnimalHotelApi.Controllers
             {
                 return this.BadRequest(ModelState);
             }
+            if (userRegisterInfo == null)
+            {
+                return this.BadRequest("Body must be not null");
+            }
             try
             {
                 var session = authenticator.Authenticate(userRegisterInfo.Login, userRegisterInfo.Password);

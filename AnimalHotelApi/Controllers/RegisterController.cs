@@ -31,6 +31,10 @@ namespace AnimalHotelApi.Controllers
             {
                 return this.BadRequest(ModelState);
             }
+            if (userRegisterInfo == null)
+            {
+                return this.BadRequest("Body must be not null");
+            }
             try
             {
                 var user = userRepository.Create(UserConverter.Convert(userRegisterInfo));

@@ -35,6 +35,10 @@ namespace AnimalHotelApi.Controllers
             {
                 return this.BadRequest(ModelState);
             }
+            if (patchInfo == null)
+            {
+                return this.BadRequest("Body must be not null");
+            }
 
             if (!Guid.TryParse(userId, out var userIdGuid))
             {

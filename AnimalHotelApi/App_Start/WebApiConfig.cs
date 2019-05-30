@@ -35,12 +35,7 @@ namespace AnimalHotelApi
             container.RegisterSingleton<IPlaceRepository, DbPlaceRepository>();
             container.RegisterSingleton<IAuthentificator, DbAuthentificator>();
             container.RegisterInstance<IMongoClient>(mongoClient);
-
-            //container.RegisterSingleton<AbstractValidator<UserRegistrationInfo>, UserRegistrationInfoValidator>();
-            //container.RegisterSingleton<AbstractValidator<UserPatchInfo>, UserPatchInfoValidator>();
-            //container.RegisterSingleton<AbstractValidator<PlacePatchInfo>, PlacePatchInfoValidator>();
-            //container.RegisterSingleton<AbstractValidator<PlaceBuildInfo>, PlaceBuildInfoValidator>();
-
+            
             config.DependencyResolver = new UnityResolver(container);
             // Attribute routing
             config.MapHttpAttributeRoutes();
