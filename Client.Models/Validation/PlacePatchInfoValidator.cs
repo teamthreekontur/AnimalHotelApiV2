@@ -10,7 +10,9 @@ namespace Client.Models.Validation
 {
     public class PlacePatchInfoValidator : AbstractValidator<PlacePatchInfo>
     {
-        private const string plainTextSpecChars = @"|\'""~№_<>(){}[]!?.,;:@#$%^&+-*/= ";
+        private const string nameChars = ".,- ";
+        private const string addressChars = ".,-\\ ";
+        private const string descriptionChars = ValidationSymbols.SpecialChars + "\r\n ";
         public PlacePatchInfoValidator()
         {
             RuleFor(x => x.Name)
@@ -18,25 +20,25 @@ namespace Client.Models.Validation
                 .When(x => x.Name != null)
                 .WithMessage(@"Name must be 3..50 symbols length");
             RuleFor(x => x.Name)
-                .Must(x => x.All(c => char.IsLetterOrDigit(c) || plainTextSpecChars.Contains(c)))
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || nameChars.Contains(c)))
                 .When(x => x.Name != null)
-                .WithMessage(@"Name must contain only letters\digits\space\spec symbols: " + plainTextSpecChars);
+                .WithMessage(@"Name must contain only letters\digits\space\spec symbols: " + nameChars);
             RuleFor(x => x.Address)
                 .Length(5, 150)
                 .When(x => x.Address != null)
                 .WithMessage(@"Address must be 5..150 symbols length");
-            RuleFor(x => x.Name)
-                .Must(x => x.All(c => char.IsLetterOrDigit(c) || plainTextSpecChars.Contains(c)))
+            RuleFor(x => x.Address)
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || addressChars.Contains(c)))
                 .When(x => x.Address != null)
-                .WithMessage(@"Address must contain only letters\digits\space\spec symbols: " + plainTextSpecChars);
+                .WithMessage(@"Address must contain only letters\digits\space\spec symbols: " + addressChars);
             RuleFor(x => x.Description)
                 .Length(10, 500)
                 .When(x => x.Description != null)
                 .WithMessage(@"Description must be 10..500 symbols length");
             RuleFor(x => x.Description)
-                .Must(x => x.All(c => char.IsLetterOrDigit(c) || plainTextSpecChars.Contains(c)))
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || descriptionChars.Contains(c)))
                 .When(x => x.Description != null)
-                .WithMessage(@"Description must contain only letters\digits\space\spec symbols: " + plainTextSpecChars);
+                .WithMessage(@"Description must contain only letters\digits\space\spec symbols: " + descriptionChars);
             RuleFor(x => x.Price)
                 .InclusiveBetween(0, 99999)
                 .When(x => x.Price != null)

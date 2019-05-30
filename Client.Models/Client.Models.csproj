@@ -70,6 +70,7 @@
     <Compile Include="Validation\PlacePatchInfoValidator.cs" />
     <Compile Include="Validation\UserPatchInfoValidator.cs" />
     <Compile Include="Validation\UserRegistrationInfoValidator.cs" />
+    <Compile Include="Validation\ValidationSymbols.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

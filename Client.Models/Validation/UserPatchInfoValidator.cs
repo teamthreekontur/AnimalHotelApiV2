@@ -10,8 +10,6 @@ namespace Client.Models.Validation
 {
     public class UserPatchInfoValidator : AbstractValidator<UserPatchInfo>
     {
-        private const string validSpecCharsForLogin = @",.-";
-        private const string validSpecCharsForPass = @"|\'""~№_<>(){}[]!?.,;:@#$%^&+-*/=";
         public UserPatchInfoValidator()
         {
             RuleFor(x => x.Login)
@@ -19,17 +17,17 @@ namespace Client.Models.Validation
                 .When(x => x.Login != null)
                 .WithMessage(@"Login must be 3..255 char length");
             RuleFor(x => x.Login)
-                .Must(x => x.All(c => char.IsLetterOrDigit(c) || validSpecCharsForLogin.Contains(c)))
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || ValidationSymbols.SpecialChars.Contains(c)))
                 .When(x => x.Login != null)
-                .WithMessage(@"Login must include only letters\digits\spec symbols: " + validSpecCharsForLogin);
+                .WithMessage(@"Login must include only letters\digits\spec symbols: " + ValidationSymbols.SpecialChars);
             RuleFor(x => x.Password)
                 .Length(12, 255)
                 .When(x => x.Password != null)
                 .WithMessage(@"Password must be 12..255 char length");
             RuleFor(x => x.Password)
-                .Must(x => x.All(c => char.IsLetterOrDigit(c) || validSpecCharsForPass.Contains(c)))
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || ValidationSymbols.SpecialChars.Contains(c)))
                 .When(x => x.Password != null)
-                .WithMessage(@"Password must include only letters\digits\spec symbols: " + validSpecCharsForPass);
+                .WithMessage(@"Password must include only letters\digits\spec symbols: " + ValidationSymbols.SpecialChars);
         }
     }
 }
