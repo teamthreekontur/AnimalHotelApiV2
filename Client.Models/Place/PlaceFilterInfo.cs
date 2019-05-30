@@ -6,13 +6,23 @@
     public class PlaceFilterInfo
     {
         /// <summary>
-        /// Фильтр по пользователю
-        /// </summary>
-        public string UserId { get; set; }
-
-        /// <summary>
         /// Фильтр по названию
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Фильтр по адресу
+        /// </summary>
+        public string Address { get; set; }
+
+        /// <summary>
+        /// Фильтр по описанию
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Фильтр по цене
+        /// </summary>
+        public decimal? Price { get; set; }
     }
 }
