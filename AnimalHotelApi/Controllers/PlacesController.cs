@@ -59,7 +59,12 @@ namespace Place.API.Controllers
         [HttpGet]
         public IHttpActionResult GetPlaces([FromUri]PlaceFilterInfo placeFilterInfo)
         {
-            return this.Ok(new
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+            
+            return Ok(new
             {
                 Places = repository.Get(PlaceFilterInfoConverter.Convert(placeFilterInfo))
             });

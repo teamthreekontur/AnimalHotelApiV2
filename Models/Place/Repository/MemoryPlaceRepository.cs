@@ -77,7 +77,55 @@ namespace Models.Place.Repository
         /// <returns>Список передержек</returns>
         public List<Place> Get(PlaceFilterInfo placeFilter)
         {
-            return primaryKeyIndex.Values.ToList();
+            if (placeFilter == null)
+            {
+                throw new ArgumentNullException(nameof(placeFilter));
+            }
+
+            var places = new List<Place>();
+
+            if (placeFilter.Name != null)
+            {
+                foreach (var value in primaryKeyIndex.Values.ToList())
+                {
+                    if (value.Name == placeFilter.Name)
+                    {
+                        places.Add(value);
+                    }
+                }
+            }
+            else if (placeFilter.Address != null)
+            {
+                foreach (var value in primaryKeyIndex.Values.ToList())
+                {
+                    if (value.Address == placeFilter.Address)
+                    {
+                        places.Add(value);
+                    }
+                }
+            }
+            else if (placeFilter.Description != null)
+            {
+                foreach (var value in primaryKeyIndex.Values.ToList())
+                {
+                    if (value.Description == placeFilter.Description)
+                    {
+                        places.Add(value);
+                    }
+                }
+            }
+            else if (placeFilter.Price != 0)
+            {
+                foreach (var value in primaryKeyIndex.Values.ToList())
+                {
+                    if (value.Price == placeFilter.Price)
+                    {
+                        places.Add(value);
+                    }
+                }
+            }
+
+            return places;
         }
 
         /// <summary>
