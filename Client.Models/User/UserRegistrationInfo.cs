@@ -21,5 +21,11 @@ namespace Client.Models.User
         /// </summary>
         [Required]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Подтверждение пароля
+        /// </summary>
+        [Required]
+        public string ConfirmPassword { get; set; }
     }
 }

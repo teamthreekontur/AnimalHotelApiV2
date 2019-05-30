@@ -15,5 +15,10 @@ namespace Client.Models.User
         /// Пароль пользователя
         /// </summary>
         public string Password;
+
+        /// <summary>
+        /// Подтверждение пароля
+        /// </summary>
+        public string ConfirmPassword;
     }
 }

@@ -15,6 +15,13 @@ namespace Client.Models.Validation
         private const string descriptionChars = ValidationSymbols.SpecialChars + "\r\n ";
         public PlacePatchInfoValidator()
         {
+            RuleFor(x => x)
+                .NotNull();
+            When(x => x != null, () => { FieldRules(); });
+        }
+
+        private void FieldRules()
+        {
             RuleFor(x => x.Name)
                 .Length(3, 50)
                 .When(x => x.Name != null)
