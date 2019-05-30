@@ -10,10 +10,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace AnimalHotelApi.Controllers
 {
     [RoutePrefix("api/register")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RegisterController : ApiController
     {
         private readonly IUserRepository userRepository;

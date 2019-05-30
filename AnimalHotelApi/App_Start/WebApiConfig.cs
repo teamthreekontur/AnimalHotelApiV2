@@ -59,6 +59,7 @@ namespace AnimalHotelApi
               defaults: new { id = RouteParameter.Optional }
             );
             FluentValidationModelValidatorProvider.Configure(config);
+            config.EnableCors();
         }
     }
 }
