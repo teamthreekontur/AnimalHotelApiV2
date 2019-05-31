@@ -48,23 +48,23 @@ namespace Models.Place.Repository
 
         public List<Place> Get(PlaceFilterInfo placeFilter)
         {
-            if (placeFilter.Name != null)
-            {
-                return places.Find(x => x.Name == placeFilter.Name).ToList();
-            }
-            else if (placeFilter.Address != null)
-            {
-                return places.Find(x => x.Address == placeFilter.Address).ToList();
-            }
-            else if (placeFilter.Description != null)
-            {
-                return places.Find(x => x.Description == placeFilter.Description).ToList();
-            }
-            else if (placeFilter.Price != 0)
-            {
-                return places.Find(x => x.Price == placeFilter.Price).ToList();
-            }
-
+            //if (placeFilter.Name != null)
+            //{
+            //    return places.Find(x => x.Name == placeFilter.Name).ToList();
+            //}
+            //else if (placeFilter.Address != null)
+            //{
+            //    return places.Find(x => x.Address == placeFilter.Address).ToList();
+            //}
+            //else if (placeFilter.Description != null)
+            //{
+            //    return places.Find(x => x.Description == placeFilter.Description).ToList();
+            //}
+            //else if (placeFilter.Price != 0)
+            //{
+            //    return places.Find(x => x.Price == placeFilter.Price).ToList();
+            //}
+            //else 
             return places.Find(x => true).ToList();
         }
 
