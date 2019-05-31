@@ -60,10 +60,11 @@ namespace Models.Place.Repository
             {
                 return places.Find(x => x.Description == placeFilter.Description).ToList();
             }
-            else if (placeFilter.Price != 0M)
+            else if (placeFilter.Price != null)
             {
                 return places.Find(x => x.Price == placeFilter.Price).ToList();
             }
+
             else return places.Find(x => true).ToList();
         }
 

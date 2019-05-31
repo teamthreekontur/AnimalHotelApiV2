@@ -111,7 +111,7 @@ namespace Models.Place.Repository
                     }
                 }
             }
-            else if (placeFilter.Price != 0M)
+            else if (placeFilter.Price != null)
             {
                 foreach (var value in primaryKeyIndex.Values.ToList())
                 {
