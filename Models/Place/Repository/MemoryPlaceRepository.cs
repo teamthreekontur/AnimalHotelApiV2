@@ -122,7 +122,7 @@ namespace Models.Place.Repository
                 }
             }
 
-            return places;
+            return primaryKeyIndex.Values.ToList();
         }
 
         /// <summary>
