@@ -60,7 +60,7 @@ namespace Models.Place.Repository
             {
                 return places.Find(x => x.Description == placeFilter.Description).ToList();
             }
-            else if (placeFilter.Price != 0)
+            else if (placeFilter.Price != 0M)
             {
                 return places.Find(x => x.Price == placeFilter.Price).ToList();
             }
