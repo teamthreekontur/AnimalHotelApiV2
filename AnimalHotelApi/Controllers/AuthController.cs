@@ -24,19 +24,19 @@ namespace AnimalHotelApi.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Auth([FromBody] UserRegistrationInfo userRegisterInfo)
+        public IHttpActionResult Auth([FromBody] UserAuthorizationInfo userAuthorizationInfo)
         {
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
             }
-            if (userRegisterInfo == null)
+            if (userAuthorizationInfo == null)
             {
                 return this.BadRequest("Body must be not null");
             }
             try
             {
-                var session = authenticator.Authenticate(userRegisterInfo.Login, userRegisterInfo.Password);
+                var session = authenticator.Authenticate(userAuthorizationInfo.Login, userAuthorizationInfo.Password);
                 return this.Ok(session);
             }
             catch (UserNotFoundException)

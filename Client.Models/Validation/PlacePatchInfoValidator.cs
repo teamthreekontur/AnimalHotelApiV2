@@ -13,6 +13,7 @@ namespace Client.Models.Validation
         private const string nameChars = ".,- ";
         private const string addressChars = ".,-\\ ";
         private const string descriptionChars = ValidationSymbols.SpecialChars + "\r\n ";
+        private const string contactsChars = ValidationSymbols.SpecialChars + "\r\n ";
         public PlacePatchInfoValidator()
         {
             RuleFor(x => x)
@@ -30,6 +31,7 @@ namespace Client.Models.Validation
                 .Must(x => x.All(c => char.IsLetterOrDigit(c) || nameChars.Contains(c)))
                 .When(x => x.Name != null)
                 .WithMessage(@"Name must contain only letters\digits\space\spec symbols: " + nameChars);
+
             RuleFor(x => x.Address)
                 .Length(5, 150)
                 .When(x => x.Address != null)
@@ -38,6 +40,7 @@ namespace Client.Models.Validation
                 .Must(x => x.All(c => char.IsLetterOrDigit(c) || addressChars.Contains(c)))
                 .When(x => x.Address != null)
                 .WithMessage(@"Address must contain only letters\digits\space\spec symbols: " + addressChars);
+
             RuleFor(x => x.Description)
                 .Length(10, 500)
                 .When(x => x.Description != null)
@@ -46,10 +49,20 @@ namespace Client.Models.Validation
                 .Must(x => x.All(c => char.IsLetterOrDigit(c) || descriptionChars.Contains(c)))
                 .When(x => x.Description != null)
                 .WithMessage(@"Description must contain only letters\digits\space\spec symbols: " + descriptionChars);
+
             RuleFor(x => x.Price)
                 .InclusiveBetween(0, 99999)
                 .When(x => x.Price != null)
                 .WithMessage(@"Price must be in range 0..99999");
+
+            RuleFor(x => x.Contacts)
+                .Length(5, 50)
+                .When(x => x.Contacts != null)
+                .WithMessage(@"Contacts must be 5..50 symbols length");
+            RuleFor(x => x.Contacts)
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || contactsChars.Contains(c)))
+                .When(x => x.Contacts != null)
+                .WithMessage(@"Contacts must contain only letters\digits\space\spec symbols: " + contactsChars);
         }
     }
 }

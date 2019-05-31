@@ -13,6 +13,7 @@ namespace Client.Models.Validation
         private const string nameChars = ".,- ";
         private const string addressChars = ".,-\\ ";
         private const string descriptionChars = ValidationSymbols.SpecialChars + "\r\n ";
+        private const string contactsChars = ValidationSymbols.SpecialChars + "\r\n ";
         public PlaceBuildInfoValidator()
         {
             RuleFor(x => x)
@@ -58,6 +59,17 @@ namespace Client.Models.Validation
             RuleFor(x => x.Price)
                 .InclusiveBetween(0, 99999)
                 .WithMessage(@"Price must be in range 0..99999");
+
+            RuleFor(x => x.Contacts)
+                .NotNull();
+            RuleFor(x => x.Contacts)
+                .Length(5, 50)
+                .When(x => x.Contacts != null)
+                .WithMessage(@"Contacts must be 5..50 symbols length");
+            RuleFor(x => x.Contacts)
+                .Must(x => x.All(c => char.IsLetterOrDigit(c) || contactsChars.Contains(c)))
+                .When(x => x.Contacts != null)
+                .WithMessage(@"Contacts must contain only letters\digits\space\spec symbols: " + contactsChars);
         }
     }
 }

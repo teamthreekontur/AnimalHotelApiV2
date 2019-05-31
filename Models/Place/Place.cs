@@ -38,5 +38,10 @@ namespace Models.Place
         /// Цена передержки
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Контакты
+        /// </summary>
+        public string Contacts { get; set; }
     }
 }

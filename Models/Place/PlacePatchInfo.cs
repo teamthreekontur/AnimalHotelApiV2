@@ -15,13 +15,19 @@ namespace Models.Place
         /// <param name="address">Новый адрес передержки</param>
         /// <param name="description">Новое описание передержки</param>
         /// <param name="price">Новая цена передержки</param>
-        public PlacePatchInfo(Guid placeId, string name = null, string address = null, string description = null, decimal price = 0)
+        public PlacePatchInfo(Guid placeId, 
+            string name = null, 
+            string address = null, 
+            string description = null, 
+            decimal price = 0,
+            string contacts = null)
         {
             PlaceId = placeId;
             Name = name;
             Address = address;
             Description = description;
             Price = price;
+            Contacts = contacts;
         }
 
         /// <summary>
@@ -48,5 +54,10 @@ namespace Models.Place
         /// Цена передержки
         /// </summary>
         public decimal? Price { get; set; }
+
+        /// <summary>
+        /// Контакты
+        /// </summary>
+        public string Contacts { get; set; }
     }
 }

@@ -28,7 +28,8 @@
                 Address = modelPlaceInfo.Address,
                 Price = modelPlaceInfo.Price,
                 Description = modelPlaceInfo.Description,
-                OwnerId = modelPlaceInfo.OwnerId.ToString()
+                OwnerId = modelPlaceInfo.OwnerId.ToString(),
+                Contacts = modelPlaceInfo.Contacts
             };
 
             return clientNoteInfo;

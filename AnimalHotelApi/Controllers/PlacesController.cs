@@ -189,6 +189,11 @@ namespace Place.API.Controllers
             }
             try
             {
+                var place = repository.Get(placeIdGuid);
+                if (place.OwnerId != sessionState.UserId)
+                {
+                    return this.Unauthorized();
+                }
                 repository.Remove(placeIdGuid);
             }
             catch (Models.Place.PlaceNotFoundException)

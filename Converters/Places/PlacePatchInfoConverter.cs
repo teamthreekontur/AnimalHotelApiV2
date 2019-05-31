@@ -27,7 +27,8 @@
                 Name = clientPatchInfo.Name,
                 Address = clientPatchInfo.Address,
                 Description = clientPatchInfo.Description,
-                Price = clientPatchInfo.Price
+                Price = clientPatchInfo.Price,
+                Contacts = clientPatchInfo.Contacts
             };
 
             return modelPatchInfo;

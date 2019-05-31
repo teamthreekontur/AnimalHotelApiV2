@@ -47,12 +47,9 @@ namespace Models.Place.Repository
         /// </summary>
         /// <param name="placeId">Идентификатор передержки</param>
         /// <returns>Передержка</returns>
-        public Place Remove(Guid placeId)
+        public bool Remove(Guid placeId)
         {
-            var place = Get(placeId);
-            primaryKeyIndex.Remove(placeId);
-
-            return place;
+            return primaryKeyIndex.Remove(placeId);
         }
 
         /// <summary>

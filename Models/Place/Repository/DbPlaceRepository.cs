@@ -29,7 +29,8 @@ namespace Models.Place.Repository
                 Address = createInfo.Address,
                 OwnerId = createInfo.IdOwner,
                 Description = createInfo.Description,
-                Name = createInfo.Name
+                Name = createInfo.Name,
+                Contacts = createInfo.Contacts
             };
             places.InsertOne(place);
             return place;
@@ -79,13 +80,19 @@ namespace Models.Place.Repository
                 place.Price = patchInfo.Price ?? 0;
             }
 
+            if (patchInfo.Contacts != null)
+            {
+                place.Contacts = patchInfo.Contacts;
+            }
+
             places.ReplaceOne(x => x.Id == place.Id, place);
             return place;
         }
 
-        public Place Remove(Guid placeId)
+        public bool Remove(Guid placeId)
         {
-            throw new NotImplementedException();
+            var deleteResult = places.DeleteOne(x => x.Id == placeId);
+            return deleteResult.DeletedCount > 0;
         }
     }
 }

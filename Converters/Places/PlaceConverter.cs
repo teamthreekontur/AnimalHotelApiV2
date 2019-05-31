@@ -28,7 +28,8 @@
                 Address = modelPlace.Address,
                 Price = modelPlace.Price,
                 Description = modelPlace.Description,
-                OwnerId = modelPlace.OwnerId.ToString()
+                OwnerId = modelPlace.OwnerId.ToString(),
+                Contacts = modelPlace.Contacts
             };
 
             return clientNote;

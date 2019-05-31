@@ -33,5 +33,11 @@ namespace Client.Models.Place
         /// </summary>
         [Required]
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Контакты
+        /// </summary>
+        [Required]
+        public string Contacts { get; set; }
     }
 }

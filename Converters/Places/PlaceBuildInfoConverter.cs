@@ -30,7 +30,8 @@
                 clientBuildInfo.Address,
                 clientBuildInfo.Description,
                 clientBuildInfo.Price,
-                clientUserId
+                clientUserId,
+                clientBuildInfo.Contacts
                 );
 
             return modelCreationInfo;
