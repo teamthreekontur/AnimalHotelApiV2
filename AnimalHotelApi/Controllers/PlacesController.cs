@@ -73,6 +73,8 @@ namespace Place.API.Controllers
                 return this.BadRequest("Body must be not null");
             }
 
+            var convert = PlaceFilterInfoConverter.Convert(placeFilterInfo);
+
             return Ok(new
             {
                 Places = repository.Get(PlaceFilterInfoConverter.Convert(placeFilterInfo))
