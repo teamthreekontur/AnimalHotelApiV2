@@ -18,7 +18,7 @@ namespace Models.Place
         /// <param name="address">Адрес передержки</param>
         /// <param name="description">Описание передержки</param>
         /// <param name="price">Цена передержки</param>
-        public PlaceFilterInfo(string name = null, string address = null, string description = null, decimal price = 0)
+        public PlaceFilterInfo(string name = null, string address = null, string description = null, decimal? price = 0)
         {
             Name = name;
             Address = address;
