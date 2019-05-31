@@ -34,7 +34,8 @@ namespace Models.Place.Repository
                 Name = createInfo.Name,
                 Address = createInfo.Address,
                 Description = createInfo.Description,
-                OwnerId = createInfo.IdOwner
+                OwnerId = createInfo.IdOwner,
+                Price = createInfo.Price
             };
 
             primaryKeyIndex.Add(place.Id, place);

@@ -30,7 +30,8 @@ namespace Models.Place.Repository
                 OwnerId = createInfo.IdOwner,
                 Description = createInfo.Description,
                 Name = createInfo.Name,
-                Contacts = createInfo.Contacts
+                Contacts = createInfo.Contacts,
+                Price = createInfo.Price
             };
             places.InsertOne(place);
             return place;
