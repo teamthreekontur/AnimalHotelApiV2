@@ -65,7 +65,7 @@ namespace Models.Place.Repository
                 return places.Find(x => x.Price == placeFilter.Price).ToList();
             }
 
-            return null;
+            return places.Find(x => true).ToList();
         }
 
         public Place Patch(PlacePatchInfo patchInfo)
