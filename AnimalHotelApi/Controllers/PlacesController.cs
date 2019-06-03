@@ -15,6 +15,7 @@ using System.Web.Http.Cors;
 namespace Place.API.Controllers
 {
     [RoutePrefix("api/places")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public sealed class PlacesController : ApiController
     {
         private readonly IPlaceRepository repository;

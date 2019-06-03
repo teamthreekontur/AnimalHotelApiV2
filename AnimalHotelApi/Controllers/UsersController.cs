@@ -15,6 +15,7 @@ namespace AnimalHotelApi.Controllers
     using Model = global::Models.User;
 
     [RoutePrefix("api/users")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
         private readonly IUserRepository userRepository;

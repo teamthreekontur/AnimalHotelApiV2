@@ -15,6 +15,7 @@ using System.Web.Http.Cors;
 namespace AnimalHotelApi.Controllers
 {
     [RoutePrefix("api/register")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RegisterController : ApiController
     {
         private readonly IUserRepository userRepository;
