@@ -37,13 +37,8 @@ namespace Place.API.Controllers
             {
                 return this.BadRequest("Body must be not null");
             }
-            string sessionId = "";
-            CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
-            if (cookie != null)
-            {
-                sessionId = cookie["SessionId"].Value;
-            }
 
+            string sessionId = buildInfo.SessionId;
             if (!authenticator.TryGetSession(sessionId, out var sessionState))
             {
                 return this.Unauthorized();
@@ -111,12 +106,7 @@ namespace Place.API.Controllers
         [Route("{placeId}")]
         public IHttpActionResult PatchPlace([FromUri]string placeId, [FromBody]PlacePatchInfo patchInfo)
         {
-            string sessionId = "";
-            CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
-            if (cookie != null)
-            {
-                sessionId = cookie["SessionId"].Value;
-            }
+            string sessionId = patchInfo.SessionId;
             if (!authenticator.TryGetSession(sessionId, out var sessionState))
             {
                 return this.Unauthorized();
@@ -165,14 +155,8 @@ namespace Place.API.Controllers
 
         [HttpDelete]
         [Route("{placeId}")]
-        public IHttpActionResult DeletePlace([FromUri]string placeId)
+        public IHttpActionResult DeletePlace([FromUri]string placeId, [FromBody] string sessionId)
         {
-            string sessionId = "";
-            CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
-            if (cookie != null)
-            {
-                sessionId = cookie["SessionId"].Value;
-            }
             if (!authenticator.TryGetSession(sessionId, out var sessionState))
             {
                 return this.Unauthorized();

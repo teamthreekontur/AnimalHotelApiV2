@@ -45,13 +45,7 @@ namespace AnimalHotelApi.Controllers
                 return BadRequest();
             }
 
-            string sessionId = "";
-            CookieHeaderValue cookie = Request.Headers.GetCookies("SessionId").FirstOrDefault();
-            if (cookie != null)
-            {
-                sessionId = cookie["SessionId"].Value;
-            }
-
+            string sessionId = patchInfo.SessionId;
             if (!authenticator.TryGetSession(sessionId, out var sessionState))
             {
                 return Unauthorized();

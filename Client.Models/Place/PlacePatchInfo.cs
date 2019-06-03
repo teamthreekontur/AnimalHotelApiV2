@@ -1,5 +1,6 @@
 ﻿using Client.Models.Validation;
 using FluentValidation.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Client.Models.Place
 {
@@ -33,5 +34,11 @@ namespace Client.Models.Place
         /// Контакты
         /// </summary>
         public string Contacts { get; set; }
+
+        /// <summary>
+        /// Id сессии
+        /// </summary>
+        [Required]
+        public string SessionId { get; set; }
     }
 }

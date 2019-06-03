@@ -39,5 +39,11 @@ namespace Client.Models.Place
         /// </summary>
         [Required]
         public string Contacts { get; set; }
+
+        /// <summary>
+        /// Id сессии
+        /// </summary>
+        [Required]
+        public string SessionId { get; set; }
     }
 }

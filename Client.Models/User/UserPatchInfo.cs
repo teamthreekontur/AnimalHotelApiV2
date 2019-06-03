@@ -1,5 +1,6 @@
 ﻿using Client.Models.Validation;
 using FluentValidation.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Client.Models.User
 {
@@ -20,5 +21,11 @@ namespace Client.Models.User
         /// Подтверждение пароля
         /// </summary>
         public string ConfirmPassword;
+
+        /// <summary>
+        /// Id сессии
+        /// </summary>
+        [Required]
+        public string SessionId { get; set; }
     }
 }

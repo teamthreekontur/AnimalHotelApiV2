@@ -47,6 +47,14 @@ namespace Client.Models.Validation
                 .Equal(x => x.Password)
                 .When(x => x.Password != null && x.ConfirmPassword != null)
                 .WithMessage(@"Password confirmation must be equal to password");
+
+
+            RuleFor(x => x.SessionId)
+                .NotNull();
+            RuleFor(x => x.SessionId)
+                .Must(x => Guid.TryParse(x, out var guid))
+                .When(x => x.SessionId != null)
+                .WithMessage("Session id must be valid guid");
         }
     }
 }

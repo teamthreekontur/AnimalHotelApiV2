@@ -63,6 +63,14 @@ namespace Client.Models.Validation
                 .Must(x => x.All(c => char.IsLetterOrDigit(c) || contactsChars.Contains(c)))
                 .When(x => x.Contacts != null)
                 .WithMessage(@"Contacts must contain only letters\digits\space\spec symbols: " + contactsChars);
+
+            RuleFor(x => x.SessionId)
+                .NotNull();
+            RuleFor(x => x.SessionId)
+                .Must(x => Guid.TryParse(x, out var guid))
+                .When(x => x.SessionId != null)
+                .WithMessage("Session id must be valid guid");
+
         }
     }
 }
