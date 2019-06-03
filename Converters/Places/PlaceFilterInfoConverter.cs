@@ -12,7 +12,12 @@ namespace Models.Converters.Places
     {
         public static Model.PlaceFilterInfo Convert(View.PlaceFilterInfo placeFilterInfo)
         {
-            return new Model.PlaceFilterInfo(placeFilterInfo.Name, placeFilterInfo.Address, placeFilterInfo.Description, placeFilterInfo.Price);
+            return new Model.PlaceFilterInfo(placeFilterInfo.Name, 
+                placeFilterInfo.Address, 
+                placeFilterInfo.Description, 
+                placeFilterInfo.PriceMin,
+                placeFilterInfo.PriceMax,
+                placeFilterInfo.OwnerId);
         }
     }
 }

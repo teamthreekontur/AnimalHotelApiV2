@@ -1,8 +1,12 @@
-﻿namespace Client.Models.Place
+﻿using Client.Models.Validation;
+using FluentValidation.Attributes;
+
+namespace Client.Models.Place
 {
     /// <summary>
     /// Фильтр по передержкам
     /// </summary>
+    [Validator(typeof(PlaceFilterInfoValidator))]
     public class PlaceFilterInfo
     {
         /// <summary>
@@ -21,8 +25,18 @@
         public string Description { get; set; }
 
         /// <summary>
-        /// Фильтр по цене
+        /// Фильтр по минимальной цене
         /// </summary>
-        public decimal? Price { get; set; }
+        public decimal? PriceMin { get; set; }
+
+        /// <summary>
+        /// Фильтр по максимальной цене
+        /// </summary>
+        public decimal? PriceMax { get; set; }
+
+        /// <summary>
+        /// Фильтр по пользователю
+        /// </summary>
+        public string OwnerId { get; set; }
     }
 }

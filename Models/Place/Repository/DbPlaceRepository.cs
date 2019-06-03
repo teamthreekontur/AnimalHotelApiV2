@@ -49,24 +49,40 @@ namespace Models.Place.Repository
 
         public List<Place> Get(PlaceFilterInfo placeFilter)
         {
+            var queryBuilder = new FilterDefinitionBuilder<Place>();
+            var filters = new List<FilterDefinition<Place>>();
             if (placeFilter.Name != null)
             {
-                return places.Find(x => x.Name == placeFilter.Name).ToList();
+                filters.Add(queryBuilder.Eq("Name", placeFilter.Name));
             }
-            else if (placeFilter.Address != null)
+            if (placeFilter.Address != null)
             {
-                return places.Find(x => x.Address == placeFilter.Address).ToList();
+                filters.Add(queryBuilder.Eq("Address", placeFilter.Address));
             }
-            else if (placeFilter.Description != null)
+            if (placeFilter.Description != null)
             {
-                return places.Find(x => x.Description == placeFilter.Description).ToList();
+                filters.Add(queryBuilder.Eq("Description", placeFilter.Description));
             }
-            else if (placeFilter.Price != null)
+            if (placeFilter.PriceMin != null)
             {
-                return places.Find(x => x.Price == placeFilter.Price).ToList();
+                filters.Add(queryBuilder.Gte("Price", placeFilter.PriceMin));
             }
-
-            else return places.Find(x => true).ToList();
+            if (placeFilter.PriceMax != null)
+            {
+                filters.Add(queryBuilder.Lte("Price", placeFilter.PriceMax));
+            }
+            if (placeFilter.OwnerId != null)
+            {
+                filters.Add(queryBuilder.Eq("OwnerId", placeFilter.OwnerId));
+            }
+            if (filters.Count != 0)
+            {
+                return places.Find(queryBuilder.And(filters)).ToList();
+            }
+            else
+            {
+                return places.Find(x => true).ToList();
+            }
         }
 
         public Place Patch(PlacePatchInfo patchInfo)

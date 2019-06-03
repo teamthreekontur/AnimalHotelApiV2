@@ -77,11 +77,9 @@
     <Compile Include="Place\PlacePatchInfo.cs" />
     <Compile Include="Place\Repository\DbPlaceRepository.cs" />
     <Compile Include="Place\Repository\IPlaceRepository.cs" />
-    <Compile Include="Place\Repository\MemoryPlaceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\Repository\DbUserRepository.cs" />
     <Compile Include="User\Repository\IUserRepository.cs" />
-    <Compile Include="User\Repository\MemoryUserRepository.cs" />
     <Compile Include="User\User.cs" />
     <Compile Include="User\UserCreateInfo.cs" />
     <Compile Include="User\UserDuplicationException.cs" />

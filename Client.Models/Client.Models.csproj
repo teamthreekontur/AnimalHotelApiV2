@@ -68,6 +68,7 @@
     <Compile Include="User\UserPatchInfo.cs" />
     <Compile Include="User\UserRegistrationInfo.cs" />
     <Compile Include="Validation\PlaceBuildInfoValidator.cs" />
+    <Compile Include="Validation\PlaceFilterInfoValidator.cs" />
     <Compile Include="Validation\PlacePatchInfoValidator.cs" />
     <Compile Include="Validation\UserAuthorizationInfoValidator.cs" />
     <Compile Include="Validation\UserPatchInfoValidator.cs" />

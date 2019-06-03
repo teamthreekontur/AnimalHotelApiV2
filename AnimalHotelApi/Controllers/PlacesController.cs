@@ -66,7 +66,7 @@ namespace Place.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest();
+                return this.BadRequest(ModelState);
             }
             if (placeFilterInfo == null)
             {

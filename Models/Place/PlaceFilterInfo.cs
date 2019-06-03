@@ -18,12 +18,27 @@ namespace Models.Place
         /// <param name="address">Адрес передержки</param>
         /// <param name="description">Описание передержки</param>
         /// <param name="price">Цена передержки</param>
-        public PlaceFilterInfo(string name = null, string address = null, string description = null, decimal? price = null)
+        public PlaceFilterInfo(string name = null, 
+            string address = null,
+            string description = null,
+            decimal? priceMin = null,
+            decimal? priceMax = null,
+            string userId = null
+            )
         {
             Name = name;
             Address = address;
             Description = description;
-            Price = price;
+            PriceMin = priceMin;
+            PriceMax = priceMax;
+            if (!Guid.TryParse(userId, out var guid))
+            {
+                OwnerId = null;
+            }
+            else
+            {
+                OwnerId = guid;
+            }
         }
 
         /// <summary>
@@ -42,8 +57,18 @@ namespace Models.Place
         public string Description { get; set; }
 
         /// <summary>
-        /// Цена передержки
+        /// Фильтр по минимальной цене
         /// </summary>
-        public decimal? Price { get; set; }
+        public decimal? PriceMin { get; set; }
+
+        /// <summary>
+        /// Фильтр по максимальной цене
+        /// </summary>
+        public decimal? PriceMax { get; set; }
+
+        /// <summary>
+        /// Фильтр по пользователю
+        /// </summary>
+        public Guid? OwnerId { get; set; }
     }
 }
